@@ -59,8 +59,8 @@ if (!canEmbed) {
     });
 } else {
     const embed = new EmbedBuilder()
-        .setColor(welcomeConfig.welcomeEmbed?.color || getColor('success'))
-        .setTitle(embedTitle)
+        .setColor('#3498DB')
+    .setTitle(embedTitle)
                         .setDescription(welcomeMessage)
                         .setThumbnail(user.displayAvatarURL())
                 
