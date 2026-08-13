@@ -145,15 +145,15 @@ description: panelMessage,
             const ticketButton = new ActionRowBuilder().addComponents(
     new ButtonBuilder()
         .setCustomId("create_ticket_support")
-        .setLabel("Soporte")
+        .setLabel("General Support / Soporte General")
         .setStyle(ButtonStyle.Primary)
         .setEmoji("🎫"),
 
     new ButtonBuilder()
         .setCustomId("create_ticket_report")
-        .setLabel("Reportar")
+        .setLabel("Partnership / Partnership")
         .setStyle(ButtonStyle.Danger)
-        .setEmoji("🚨"),
+        .setEmoji("🤝"),
 
     new ButtonBuilder()
         .setCustomId("create_ticket_other")
