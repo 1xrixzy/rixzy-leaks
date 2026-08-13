@@ -79,7 +79,14 @@ export const getUserTicketCount = wrapServiceBoundary(async function getUserTick
   context: {},
 });
 
-export async function createTicket(guild, member, categoryId, reason = 'No reason provided', priority = 'none') {
+export async function createTicket(
+  guild,
+  member,
+  categoryId,
+  reason = 'No reason provided',
+  priority = 'none',
+  ticketType = 'General Support'
+) {
   try {
     const config = await getGuildConfig(guild.client, guild.id);
     const ticketConfig = config.tickets || {};
