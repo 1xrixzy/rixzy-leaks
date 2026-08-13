@@ -1,4 +1,6 @@
 import createTicketHandler, {
+  createTicketReportHandler,
+  createTicketOtherHandler,
   closeTicketHandler,
   claimTicketHandler,
   priorityTicketHandler,
@@ -10,6 +12,8 @@ import createTicketHandler, {
 
 export default [
   createTicketHandler,
+  createTicketReportHandler,
+  createTicketOtherHandler,
   closeTicketHandler,
   claimTicketHandler,
   priorityTicketHandler,
