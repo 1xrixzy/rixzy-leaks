@@ -285,7 +285,7 @@ async function handleSetup(interaction, guild, client) {
      */
 
     verifyEmbed.setImage(
-        'https://cdn.discordapp.com/attachments/1537292601881919664/1537545342394826852/C4628B31-8715-4462-9376-F18466FB2156.png?ex=6a7f6e2f&is=6a7e1caf&hm=366935730228d80ecd77c574ccfd94778737d675ef46c1d5653b001c74611119&'
+        'https://cdn.discordapp.com/attachments/1537292601881919664/1537551354120241193/image0.jpg?ex=6a7f73c9&is=6a7e2249&hm=f8e97e47cbcbc640760f062303dea389da5eb12e130573a1a3cb8cd6516f9035&'
     );
 
     verifyEmbed.setFooter({
