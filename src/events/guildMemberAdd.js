@@ -32,13 +32,12 @@ export default {
                 const formatData = { user, guild, member };
                 const welcomeMessage = formatWelcomeMessage(
                     welcomeConfig.welcomeMessage || welcomeConfig.welcomeEmbed?.description || botConfig.welcome?.defaultWelcomeMessage || 'Welcome {user} to {server}!',
-                    formatData
-                );
+                    
+              
 
                 const messageContent = welcomeConfig.welcomePing ? user.toString() : null;
 
-              const embedTitle = formatWelcomeMessage(
-    '🎉 WELCOME To RIXZY LEAKS | BIENVENID@ A RIXZY LEAKS, {username}!',
+              const embedTitle = `🎉 WELCOME To RIXZY LEAKS | BIENVENID@ A RIXZY LEAKS, ${user.username}!`;
     formatData
 );
 
