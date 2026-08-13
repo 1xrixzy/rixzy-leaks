@@ -252,11 +252,11 @@ async function showTicketModal(interaction, client, ticketType) {
 
 
 /* =========================================================
-   REPORT / GENERAL SUPPORT BUTTON
+    GENERAL SUPPORT BUTTON
    ========================================================= */
 
 const createTicketReportHandler = {
-  name: 'create_ticket_report',
+  name: 'create_ticket_general',
 
   async execute(interaction, client) {
     return showTicketModal(
@@ -273,7 +273,7 @@ const createTicketReportHandler = {
    ========================================================= */
 
 const createTicketOtherHandler = {
-  name: 'create_ticket_other',
+  name: 'create_ticket_purchase',
 
   async execute(interaction, client) {
     return showTicketModal(
