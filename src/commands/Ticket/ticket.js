@@ -151,15 +151,15 @@ description: panelMessage,
 
     new ButtonBuilder()
         .setCustomId("create_ticket_report")
-        .setLabel("Partnership / Partnership")
+        .setLabel("Partnership")
         .setStyle(ButtonStyle.Danger)
         .setEmoji("🤝"),
 
     new ButtonBuilder()
         .setCustomId("create_ticket_other")
-        .setLabel("Otros")
+        .setLabel("Purchase / Compra")
         .setStyle(ButtonStyle.Secondary)
-        .setEmoji("❓"),
+        .setEmoji("🛒"),
 );
 
             try {
