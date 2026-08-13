@@ -173,6 +173,7 @@ export async function createTicket(
       claimedBy: null,
       priority: priority || 'none',
       reason,
+      ticketType,
     };
     
     await saveTicketData(guild.id, channel.id, ticketData);
