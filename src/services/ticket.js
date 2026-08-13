@@ -182,7 +182,11 @@ export async function createTicket(
     
     const embed = createEmbed({
       title: `Ticket #${ticketNumber}`,
-      description: `${member.toString()}, thanks for creating a ticket!\n\n**Reason:** ${reason}\n**Priority:** ${priorityInfo.emoji} ${priorityInfo.label}`,
+     description:
+  `${member.toString()}, thanks for creating a ticket!\n\n` +
+  `**Type:** ${ticketType}\n` +
+  `**Reason:** ${reason}\n` +
+  `**Priority:** ${priorityInfo.emoji} ${priorityInfo.label}`,
       color: priorityInfo.color,
       fields: [
         { name: 'Status', value: '🟢 Open', inline: true },
