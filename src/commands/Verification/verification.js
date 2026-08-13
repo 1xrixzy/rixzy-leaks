@@ -286,7 +286,7 @@ async function handleSetup(interaction, guild, client) {
      * REEMPLAZA URL_DE_TU_BANNER POR EL ENLACE REAL DE TU BANNER.
      */
 
-    verifyEmbed.setImage('URL_DE_TU_BANNER');
+    verifyEmbed.setImage('https://cdn.discordapp.com/attachments/1537292601881919664/1537545342394826852/C4628B31-8715-4462-9376-F18466FB2156.png?ex=6a7f6e2f&is=6a7e1caf&hm=366935730228d80ecd77c574ccfd94778737d675ef46c1d5653b001c74611119&');
 
     verifyEmbed.setFooter({
         text: 'RIXZY LEAKS • Community Verification'
