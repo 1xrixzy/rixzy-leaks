@@ -30,15 +30,15 @@ export default {
             // join pipeline (auto-role, verification, logging, counters) must still run.
             if (permissions?.has([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages])) {
                 const formatData = { user, guild, member };
-                const welcomeMessage = formatWelcomeMessage(
-                    welcomeConfig.welcomeMessage || welcomeConfig.welcomeEmbed?.description || botConfig.welcome?.defaultWelcomeMessage || 'Welcome {user} to {server}!',
-                    
-              
 
-                const messageContent = welcomeConfig.welcomePing ? user.toString() : null;
+const welcomeMessage = formatWelcomeMessage(
+    welcomeConfig.welcomeMessage || welcomeConfig.welcomeEmbed?.description || botConfig.welcome?.defaultWelcomeMessage || 'Welcome {user} to {server}!',
+    formatData
+);
 
-              const embedTitle = `🎉 WELCOME To RIXZY LEAKS | BIENVENID@ A RIXZY LEAKS, ${user.username}!`;
-    
+const messageContent = welcomeConfig.welcomePing ? user.toString() : null;
+
+const embedTitle = `🎉 WELCOME To RIXZY LEAKS | BIENVENID@ A RIXZY LEAKS, ${user.username}!`;
 
 const embedFooter = welcomeConfig.welcomeEmbed?.footer
     ? formatWelcomeMessage(welcomeConfig.welcomeEmbed.footer, formatData)
