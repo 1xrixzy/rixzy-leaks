@@ -143,12 +143,24 @@ description: panelMessage,
             });
 
             const ticketButton = new ActionRowBuilder().addComponents(
-                new ButtonBuilder()
-                    .setCustomId("create_ticket")
-.setLabel(buttonLabel)
-                    .setStyle(ButtonStyle.Primary)
-                    .setEmoji("📩"),
-            );
+    new ButtonBuilder()
+        .setCustomId("create_ticket_support")
+        .setLabel("Soporte")
+        .setStyle(ButtonStyle.Primary)
+        .setEmoji("🎫"),
+
+    new ButtonBuilder()
+        .setCustomId("create_ticket_report")
+        .setLabel("Reportar")
+        .setStyle(ButtonStyle.Danger)
+        .setEmoji("🚨"),
+
+    new ButtonBuilder()
+        .setCustomId("create_ticket_other")
+        .setLabel("Otros")
+        .setStyle(ButtonStyle.Secondary)
+        .setEmoji("❓"),
+);
 
             try {
                 const sentPanel = await panelChannel.send({
