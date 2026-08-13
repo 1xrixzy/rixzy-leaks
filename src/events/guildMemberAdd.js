@@ -37,24 +37,25 @@ export default {
 
                 const messageContent = welcomeConfig.welcomePing ? user.toString() : null;
 
-                const embedTitle = formatWelcomeMessage(
-                   welcomeConfig.welcomeEmbed?.title || '🎉 Welcome to {server}, {username}! '🎉',
-formatData
-                );
-                const embedFooter = welcomeConfig.welcomeEmbed?.footer
-                    ? formatWelcomeMessage(welcomeConfig.welcomeEmbed.footer, formatData)
-                    : `Welcome to ${guild.name}!`;
+               const embedTitle = formatWelcomeMessage(
+    welcomeConfig.welcomeEmbed?.title || '🎉 Welcome to {server}, {username}!',
+    formatData
+);
 
-                const canEmbed = permissions.has(PermissionFlagsBits.EmbedLinks);
+const embedFooter = welcomeConfig.welcomeEmbed?.footer
+    ? formatWelcomeMessage(welcomeConfig.welcomeEmbed.footer, formatData)
+    : `Welcome to ${guild.name}!`;
 
-                if (!canEmbed) {
-                    await channel.send({
-                        content: messageContent || welcomeMessage
-                    });
-                } else {
-                    const embed = new EmbedBuilder()
-                        .setColor(welcomeConfig.welcomeEmbed?.color || getColor('success'))
-                        .setTitle(embedTitle)
+const canEmbed = permissions.has(PermissionFlagsBits.EmbedLinks);
+
+if (!canEmbed) {
+    await channel.send({
+        content: messageContent || welcomeMessage
+    });
+} else {
+    const embed = new EmbedBuilder()
+        .setColor(welcomeConfig.welcomeEmbed?.color || getColor('success'))
+        .setTitle(embedTitle);
                         .setDescription(welcomeMessage)
                         .setThumbnail(user.displayAvatarURL())
                 
