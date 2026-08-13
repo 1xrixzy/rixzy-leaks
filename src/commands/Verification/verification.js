@@ -266,15 +266,37 @@ async function handleSetup(interaction, guild, client) {
     const message = customMessage || defaultMessage;
     const buttonText = customButtonText || 'Verify Now';
 
+    /*
+     * ============================================================
+     * VERIFICATION EMBED
+     * ============================================================
+     */
+
     const verifyEmbed = createEmbed({
         title: '🔐 RIXZY LEAKS',
         description: message,
-        color: getColor('success')
+        color: 0x0066FF
     });
+
+    /*
+     * ============================================================
+     * VERIFICATION BANNER
+     * ============================================================
+     *
+     * REEMPLAZA URL_DE_TU_BANNER POR EL ENLACE REAL DE TU BANNER.
+     */
+
+    verifyEmbed.setImage('URL_DE_TU_BANNER');
 
     verifyEmbed.setFooter({
         text: 'RIXZY LEAKS • Community Verification'
     });
+
+    /*
+     * ============================================================
+     * VERIFY BUTTON
+     * ============================================================
+     */
 
     const verifyButton = new ActionRowBuilder().addComponents(
         new ButtonBuilder()
