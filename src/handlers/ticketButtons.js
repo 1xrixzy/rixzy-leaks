@@ -139,116 +139,164 @@ const createTicketHandler = {
   name: 'create_ticket_support',
 
   async execute(interaction, client) {
-    try {
-      if (!(await ensureGuildContext(interaction))) return;
-
-      const rateLimitKey = `${interaction.user.id}:create_ticket`;
-
-      const allowed = await checkRateLimit(
-        rateLimitKey,
-        3,
-        60000
-      );
-
-      if (!allowed) {
-        await replyUserError(interaction, {
-          type: ErrorTypes.RATE_LIMIT,
-          message: 'You are creating tickets too quickly. Please wait a minute and try again.'
-        });
-
-        return;
-      }
-
-      const config = await getGuildConfig(
-        client,
-        interaction.guildId
-      );
-
-      const maxTicketsPerUser =
-        config.maxTicketsPerUser || 3;
-
-      const { getUserTicketCount } =
-        await import('../services/ticket.js');
-
-      const currentTicketCount =
-        await getUserTicketCount(
-          interaction.guildId,
-          interaction.user.id
-        );
-
-      if (currentTicketCount >= maxTicketsPerUser) {
-        return await replyUserError(interaction, {
-          type: ErrorTypes.UNKNOWN,
-          message:
-            `You have reached the maximum number of open tickets (${maxTicketsPerUser}).\n\n` +
-            `Please close your existing tickets before creating a new one.\n\n` +
-            `**Current Tickets:** ${currentTicketCount}/${maxTicketsPerUser}`
-        });
-      }
-
-      const modal = new ModalBuilder()
-        .setCustomId('create_ticket_modal')
-        .setTitle('Create a Ticket');
-
-      const reasonInput = new TextInputBuilder()
-        .setCustomId('reason')
-        .setLabel('Why are you creating this ticket?')
-        .setStyle(TextInputStyle.Paragraph)
-        .setPlaceholder('Describe your issue...')
-        .setRequired(true)
-        .setMaxLength(1000);
-
-      const actionRow =
-        new ActionRowBuilder().addComponents(reasonInput);
-
-      modal.addComponents(actionRow);
-
-      await interaction.showModal(modal);
-
-    } catch (error) {
-      logger.error(
-        'Error creating ticket modal:',
-        error
-      );
-
-      if (!interaction.replied && !interaction.deferred) {
-        await replyUserError(interaction, {
-          type: ErrorTypes.UNKNOWN,
-          message: 'Could not open ticket creation form.'
-        });
-      }
-    }
+    return showTicketModal(interaction, client, 'General Support');
   }
 };
 
 
 /* =========================================================
-   REPORT TICKET BUTTON
+   GENERAL SUPPORT
+   ========================================================= */
+
+async function showTicketModal(interaction, client, ticketType) {
+  try {
+    if (!(await ensureGuildContext(interaction))) return;
+
+    const rateLimitKey = `${interaction.user.id}:create_ticket`;
+
+    const allowed = await checkRateLimit(
+      rateLimitKey,
+      3,
+      60000
+    );
+
+    if (!allowed) {
+      await replyUserError(interaction, {
+        type: ErrorTypes.RATE_LIMIT,
+        message: 'You are creating tickets too quickly. Please wait a minute and try again.'
+      });
+
+      return;
+    }
+
+    const config = await getGuildConfig(
+      client,
+      interaction.guildId
+    );
+
+    const maxTicketsPerUser =
+      config.maxTicketsPerUser || 3;
+
+    const { getUserTicketCount } =
+      await import('../services/ticket.js');
+
+    const currentTicketCount =
+      await getUserTicketCount(
+        interaction.guildId,
+        interaction.user.id
+      );
+
+    if (currentTicketCount >= maxTicketsPerUser) {
+      return await replyUserError(interaction, {
+        type: ErrorTypes.UNKNOWN,
+        message:
+          `You have reached the maximum number of open tickets (${maxTicketsPerUser}).\n\n` +
+          `Please close your existing tickets before creating a new one.\n\n` +
+          `**Current Tickets:** ${currentTicketCount}/${maxTicketsPerUser}`
+      });
+    }
+
+    /*
+     * Guardamos el tipo dentro del customId
+     * para saber qué botón utilizó el usuario.
+     */
+    const typeId = ticketType
+      .toLowerCase()
+      .replace(/\s+/g, '_');
+
+    const modal = new ModalBuilder()
+      .setCustomId(`create_ticket_modal:${typeId}`)
+      .setTitle(ticketType);
+
+    const reasonInput = new TextInputBuilder()
+      .setCustomId('reason')
+      .setLabel(
+        ticketType === 'Purchase'
+          ? 'What do you need help purchasing?'
+          : ticketType === 'Partnership'
+            ? 'Tell us about your partnership'
+            : 'How can we help you?'
+      )
+      .setStyle(TextInputStyle.Paragraph)
+      .setPlaceholder(
+        ticketType === 'Purchase'
+          ? 'Explain what you want to purchase...'
+          : ticketType === 'Partnership'
+            ? 'Tell us about your partnership proposal...'
+            : 'Describe your issue...'
+      )
+      .setRequired(true)
+      .setMaxLength(1000);
+
+    const actionRow =
+      new ActionRowBuilder().addComponents(reasonInput);
+
+    modal.addComponents(actionRow);
+
+    await interaction.showModal(modal);
+
+  } catch (error) {
+    logger.error(
+      'Error creating ticket modal:',
+      error
+    );
+
+    if (!interaction.replied && !interaction.deferred) {
+      await replyUserError(interaction, {
+        type: ErrorTypes.UNKNOWN,
+        message: 'Could not open ticket creation form.'
+      });
+    }
+  }
+}
+
+
+/* =========================================================
+   REPORT / GENERAL SUPPORT BUTTON
    ========================================================= */
 
 const createTicketReportHandler = {
   name: 'create_ticket_report',
 
   async execute(interaction, client) {
-    return createTicketHandler.execute(
+    return showTicketModal(
       interaction,
-      client
+      client,
+      'General Support'
     );
   }
 };
 
 
 /* =========================================================
-   OTHER TICKET BUTTON
+   PURCHASE BUTTON
    ========================================================= */
 
 const createTicketOtherHandler = {
   name: 'create_ticket_other',
 
   async execute(interaction, client) {
-    return createTicketHandler.execute(
+    return showTicketModal(
       interaction,
-      client
+      client,
+      'Purchase'
+    );
+  }
+};
+
+
+/* =========================================================
+   PARTNERSHIP BUTTON
+   ========================================================= */
+
+const createTicketPartnershipHandler = {
+  name: 'create_ticket_partnership',
+
+  async execute(interaction, client) {
+    return showTicketModal(
+      interaction,
+      client,
+      'Partnership'
     );
   }
 };
@@ -278,6 +326,26 @@ const createTicketModalHandler = {
       const reason =
         interaction.fields.getTextInputValue('reason');
 
+      /*
+       * Recuperamos el tipo de ticket desde:
+       * create_ticket_modal:general_support
+       * create_ticket_modal:purchase
+       * create_ticket_modal:partnership
+       */
+
+      const parts = interaction.customId.split(':');
+
+      const typeId = parts[1] || 'general_support';
+
+      const ticketTypes = {
+        general_support: 'General Support',
+        purchase: 'Purchase',
+        partnership: 'Partnership'
+      };
+
+      const ticketType =
+        ticketTypes[typeId] || 'General Support';
+
       const config =
         await getGuildConfig(
           client,
@@ -292,14 +360,16 @@ const createTicketModalHandler = {
           interaction.guild,
           interaction.member,
           categoryId,
-          reason
+          reason,
+          'none',
+          ticketType
         );
 
       await interaction.editReply({
         embeds: [
           successEmbed(
             'Ticket Created',
-            `Your ticket has been created in ${channel}!`
+            `Your **${ticketType}** ticket has been created in ${channel}!`
           )
         ]
       });
@@ -309,7 +379,7 @@ const createTicketModalHandler = {
         interaction,
         error,
         {
-          type: 'button',
+          type: 'modal',
           handler: 'ticket',
           customId: interaction.customId
         }
