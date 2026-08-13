@@ -38,8 +38,7 @@ export default {
                 const messageContent = welcomeConfig.welcomePing ? user.toString() : null;
 
               const embedTitle = `🎉 WELCOME To RIXZY LEAKS | BIENVENID@ A RIXZY LEAKS, ${user.username}!`;
-    formatData
-);
+    
 
 const embedFooter = welcomeConfig.welcomeEmbed?.footer
     ? formatWelcomeMessage(welcomeConfig.welcomeEmbed.footer, formatData)
