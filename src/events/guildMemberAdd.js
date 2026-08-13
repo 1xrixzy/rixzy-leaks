@@ -38,13 +38,14 @@ const welcomeMessage = formatWelcomeMessage(
     'Welcome {user} to {server}!',
     formatData
 );
-                    
-              
 
-                const messageContent = welcomeConfig.welcomePing ? user.toString() : null;
+const messageContent = welcomeConfig.welcomePing ? user.toString() : null;
 
-              const embedTitle = `🎉 WELCOME To RIXZY LEAKS | BIENVENID@ A RIXZY LEAKS, ${user.username}!`;
-    
+const embedTitle = `🎉 WELCOME To RIXZY LEAKS | BIENVENID@ A RIXZY LEAKS, ${user.username}!`;
+
+const embedFooter = welcomeConfig.welcomeEmbed?.footer
+    ? formatWelcomeMessage(welcomeConfig.welcomeEmbed.footer, formatData)
+    : `Welcome to ${guild.name}!`;
 
 const embedFooter = welcomeConfig.welcomeEmbed?.footer
     ? formatWelcomeMessage(welcomeConfig.welcomeEmbed.footer, formatData)
