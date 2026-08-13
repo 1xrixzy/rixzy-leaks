@@ -37,7 +37,7 @@ export default {
 
                 const messageContent = welcomeConfig.welcomePing ? user.toString() : null;
 
-               const embedTitle = formatWelcomeMessage(
+              const embedTitle = formatWelcomeMessage(
     welcomeConfig.welcomeEmbed?.title || '🎉 Welcome to {server}, {username}!',
     formatData
 );
@@ -55,7 +55,7 @@ if (!canEmbed) {
 } else {
     const embed = new EmbedBuilder()
         .setColor(welcomeConfig.welcomeEmbed?.color || getColor('success'))
-        .setTitle(embedTitle);
+        .setTitle(embedTitle)
                         .setDescription(welcomeMessage)
                         .setThumbnail(user.displayAvatarURL())
                 
