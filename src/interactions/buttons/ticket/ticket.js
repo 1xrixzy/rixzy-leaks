@@ -15,6 +15,7 @@ export default [
   createTicketHandler,
   createTicketReportHandler,
   createTicketOtherHandler,
+  createTicketPartnershipHandler,
   closeTicketHandler,
   claimTicketHandler,
   priorityTicketHandler,
