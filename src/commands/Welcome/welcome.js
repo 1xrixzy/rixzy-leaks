@@ -22,7 +22,7 @@ export default {
                         .setRequired(true))
                 .addStringOption(option =>
                     option.setName('message')
-                        .setDescription('Welcome message. Variables: {user}, {username}, {server}, {memberCount}')
+                        .setDescription('Welcome message. Variables: {user}, {username}, {server},')
                         .setRequired(true))
                 .addStringOption(option =>
                     option.setName('image')
@@ -38,7 +38,6 @@ export default {
             const deferSuccess = await InteractionHelper.safeDefer(interaction);
             if (!deferSuccess) {
                 logger.warn(`Welcome interaction defer failed`, {
-                    userId: interaction.user.id,
                     guildId: interaction.guildId,
                     commandName: 'welcome'
                 });
