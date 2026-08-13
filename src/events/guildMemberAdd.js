@@ -30,8 +30,14 @@ export default {
             // join pipeline (auto-role, verification, logging, counters) must still run.
             if (permissions?.has([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages])) {
                 const formatData = { user, guild, member };
-                const welcomeMessage = formatWelcomeMessage(
-                    welcomeConfig.welcomeMessage || welcomeConfig.welcomeEmbed?.description || botConfig.welcome?.defaultWelcomeMessage || 'Welcome {user} to {server}!',
+
+const welcomeMessage = formatWelcomeMessage(
+    welcomeConfig.welcomeMessage ||
+    welcomeConfig.welcomeEmbed?.description ||
+    botConfig.welcome?.defaultWelcomeMessage ||
+    'Welcome {user} to {server}!',
+    formatData
+);
                     
               
 
