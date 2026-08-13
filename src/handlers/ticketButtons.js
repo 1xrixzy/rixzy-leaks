@@ -1060,6 +1060,7 @@ export {
   createTicketModalHandler,
   createTicketReportHandler,
   createTicketOtherHandler,
+  createTicketPartnershipHandler,
   closeTicketModalHandler,
   closeTicketHandler,
   claimTicketHandler,
