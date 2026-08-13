@@ -1,6 +1,7 @@
 import createTicketHandler, {
   createTicketReportHandler,
   createTicketOtherHandler,
+  createTicketPartnershipHandler,
   closeTicketHandler,
   claimTicketHandler,
   priorityTicketHandler,
